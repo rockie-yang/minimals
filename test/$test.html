@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="minimals">Test minimals</div>
+    <script>
+      const $ = (selector) => {
+        const elements = document.querySelectorAll(selector);
+
+        return {
+          elements,
+          each(callback) {
+            elements.forEach(callback);
+            return this;
+          },
+          addClass(className) {
+            elements.forEach((element) => element.classList.add(className));
+            return this;
+          },
+          removeClass(className) {
+            elements.forEach((element) => element.classList.removeClass(className));
+            return this;
+          },
+          toggle(className) {
+            elements.forEach((element) => element.classList.toggle(className));
+            return this;
+          },
+          on(type, listener) {
+            elements.forEach((element) => element.addEventListener(type, listener));
+            return this;
+          },
+          off(type, listener) {
+            elements.forEach((element) => element.removeEventListener(type, listener));
+            return this;
+          },
+        };
+      };
+      const toggle = (event) => {
+        event.target.classList.toggle("on");
+      };
+      $("#minimals").on("click", toggle);
+    </script>
+  </body>
+</html>

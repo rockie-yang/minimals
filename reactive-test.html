@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #app {
+        display: flex;
+      }
+
+      table {
+        margin: 100px auto;
+      }
+
+      tr:nth-child(even) {
+        background-color: #ccc;
+      }
+
+      tr:nth-child(odd) {
+        background-color: #ccd;
+      }
+
+      td {
+        /* display: inline-block; */
+        padding: 10px 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="#app"></div>
+
+    <script>
+      const app = document.getElementById("#app");
+      let watchingFun = undefined;
+      function watch(target) {
+        watchingFun = target;
+        target();
+        watchingFun = undefined;
+      }
+      function reactive(obj) {
+        const deps = {};
+        return new Proxy(obj, {
+          get(target, prop, receiver) {
+            if (watchingFun) {
+              deps[prop] = deps[prop] || [];
+              deps[prop].push(watchingFun);
+            }
+            return target[prop];
+          },
+          set(target, prop, value) {
+            target[prop] = value;
+            deps[prop] && deps[prop].forEach((callback) => callback());
+          },
+        });
+      }
+      const data = reactive({ dinnerPrice: 100, tip: 10, total: 110 });
+      watch(() => {
+        data.total = data.dinnerPrice + data.tip;
+      });
+      watch(() => {
+        app.innerHTML = `
+    <table>
+      <tr>
+        <td>Dinner</td>
+        <td>${data.dinnerPrice} €</td>
+      </tr>
+      <tr>
+        <td>Tip</td>
+        <td>${data.tip} €</td>
+      </tr>
+      <tr>
+        <td>Dinner</td>
+        <td>${data.total} €</td>
+      </tr>
+    </table>
+        `;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "minimals",
+  "version": "0.1.0",
+  "description": "a minimalistic js library, in code and in mind model",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rockie-yang/minimals.git"
+  },
+  "keywords": [
+    "minimalistic",
+    "minimals"
+  ],
+  "author": "Rockie Yang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rockie-yang/minimals/issues"
+  },
+  "homepage": "https://github.com/rockie-yang/minimals#readme",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "svg-parser": "^2.0.4"
+  }
+}
